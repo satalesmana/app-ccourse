@@ -1,10 +1,12 @@
 import { ScrollView, TouchableOpacity, StyleSheet, Text, View, Image } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { MaterialCommunityIcons, Feather, FontAwesome } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
+import { router } from 'expo-router';
+import { useSelector } from 'react-redux'
 
 
 const MenuItem = ({ icon, label }) => (
-  <TouchableOpacity style={styles.menuItem}>
+  <TouchableOpacity style={styles.menuItem} >
     <View style={styles.menuLeft}>
       {icon}
       <Text style={styles.menuLabel}>{label}</Text>
@@ -14,18 +16,23 @@ const MenuItem = ({ icon, label }) => (
 );
 
 export default function SettingsTab() {
+  const profile = useSelector(state => state.profile)
+
   return (
     <SafeAreaProvider>
       <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Image
-           source={{ uri: 'https://reactjs.org/logo-og.png' }} 
+          source={{ uri: 'https://reactjs.org/logo-og.png' }} 
           style={styles.profileImage}
         />
       
-        <Text style={styles.name}>Sata Lesmana</Text>
-        <Text style={styles.email}>lesmanasata@gmail.com</Text>
-        <TouchableOpacity style={styles.editButton}>
+        <Text style={styles.name}>{profile.name}</Text>
+        <Text style={styles.email}>{profile.email}</Text>
+        <TouchableOpacity 
+          style={styles.editButton} 
+          onPress={()=>router.push('/profile')}
+        >
           <Text style={styles.editText}>Edit Profile</Text>
         </TouchableOpacity>
       </View>
