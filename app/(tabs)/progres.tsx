@@ -1,17 +1,19 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
+import { CourseProgresCard } from '../../components/CourseProgresCard';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-export default function Tab() {
+export default function ProgresTab() {
   return (
-    <View style={styles.container}>
-      <Text>Tab [Home|Settings]</Text>
-    </View>
+    <SafeAreaProvider>
+      <ScrollView style={styles.container}>
+        <CourseProgresCard/>
+      </ScrollView>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    padding: 15
   },
 });
