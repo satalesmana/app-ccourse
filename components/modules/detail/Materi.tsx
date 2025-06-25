@@ -1,18 +1,9 @@
 import { View, FlatList, Text, StyleSheet } from "react-native"
 
-const DATA = [
-    { id: '1', title: 'First Item', describe: 'Where is Python used?' },
-    { id: '2', title: 'Second Item', describe: 'Where is Python used?' },
-    { id: '3', title: 'Third Item', describe: 'Where is Python used?' },
-    { id: '4', title: 'Third Item', describe: 'Where is Python used?' },
-    { id: '5', title: 'Third Item', describe: 'Where is Python used?' },
-    { id: '7', title: 'Third Item', describe: 'Where is Python used?' },
-    { id: '8', title: 'Third Item', describe: 'Where is Python used?' },
-    { id: '9', title: 'Third Item', describe: 'Where is Python used?' },
-    { id: '10', title: 'Third Item', describe: 'Where is Python used?' },
-];
+
 
 type ItemProps = {
+    id?: string;
     title: string;
     describe: string
 };
@@ -24,11 +15,15 @@ const Item = ({ title, describe }: ItemProps) => (
     </View>
 );
 
-export const Materi = () => {
+interface MateriProps {
+    topic?: Array<ItemProps>
+}
+
+export const Materi = (props:MateriProps) => {
     return (
         <View>
             <FlatList
-                data={DATA}
+                data={props.topic}
                 renderItem={({ item }) => <Item
                     title={item.title}
                     describe={item.describe}

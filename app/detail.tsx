@@ -1,16 +1,53 @@
-import { View, ScrollView, StyleSheet, Button } from "react-native"
+import { View, Text, StyleSheet, Button, ToastAndroid } from "react-native"
 import { ButtonTabs } from "../components/ButtonTabs"
 import React, { useState } from 'react';
 import { Info, Materi } from "../components/modules/detail"
+import { useLocalSearchParams } from 'expo-router';
+import axios from 'axios';
+import { useEffect } from "react";
 
 const Detail = () => {
     const [activeTabs, setActiveTabs] = useState('info');
+    const [description, setDescription] = useState('');
+    const [itemTopic, setItemTopic] = useState([]);
+    const { id } = useLocalSearchParams();
+
+    const onGetData = async () => {
+        try {
+            const response = await axios.get(`https://elearning-api-ten.vercel.app/api/kursus/${id}`);
+
+            setDescription(response.data.data.deskripsi);
+
+            if(response.data.data.content && response.data.data.content.length > 0) {
+                const topic = response.data.data.content.map((item:any, index:Number) => {
+                    return {
+                        id: index.toString(),
+                        title: item.type,
+                        describe: item.type,
+                    }
+                });
+                setItemTopic(topic);
+            }
+            
+        } catch (error) {
+            const message = error?.message || 'Gagal mengambil data';
+            ToastAndroid.showWithGravity(
+                message,
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER,
+            );
+        }
+    }
 
     const UIActiveTabs = () => {
-        if (activeTabs == 'info') return <Info />
-        if (activeTabs == 'index') return <Materi />
-        return <Info />
+        if (activeTabs == 'info') return <Info description={description} />
+        if (activeTabs == 'index') return <Materi topic={itemTopic} />
+        return <Info description={description} />
     }
+
+    useEffect(() => {
+        onGetData()
+    }, [])
 
     return (
         <View style={styles.container}>
