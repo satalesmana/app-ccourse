@@ -1,4 +1,4 @@
-import { FlatList, Text, View, StyleSheet, Image, Button, ScrollView } from "react-native";
+import { FlatList, ToastAndroid, StyleSheet } from "react-native";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { router } from "expo-router";
 import axios from 'axios'
@@ -11,8 +11,8 @@ const Home = () => {
     const dispatch = useDispatch()
     const kursusList = useSelector(state => state.kursus.data)
 
-    const onGoToDetail = () => {
-        router.push('/detail')
+    const onGoToDetail = (itemId:String) => {
+        router.push(`/detail?id=${itemId}`)
     }
 
     const onStartCourse = () => {
@@ -21,10 +21,17 @@ const Home = () => {
 
     const onGetData = async () => {
         try {
-            const response = await axios.get('http://192.168.39.60:3000/api/kursus');
+            const response = await axios.get('https://elearning-api-ten.vercel.app/api/kursus');
             dispatch(setData(response.data.data))
         } catch (error) {
-            console.error(error);
+            dispatch(setData([]));
+            const message = error?.message || 'Gagal mengambil data';
+            
+            ToastAndroid.showWithGravity(
+                message,
+                ToastAndroid.SHORT,
+                ToastAndroid.CENTER,
+            );
         }
     }
 
@@ -45,6 +52,7 @@ const Home = () => {
                         deskription={item.deskripsi}
                         image={item.img_url}
                         tanggal={item.tgl}
+                        onGoToDetail={()=>onGoToDetail(item._id)}
                      />
                 }
                 keyExtractor={item => item._id}

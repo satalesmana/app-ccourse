@@ -1,13 +1,15 @@
 import { View, ScrollView, Text, StyleSheet } from "react-native"
 
-export const Info = () => {
+interface InfoProps {
+    description?: string;
+}
+
+export const Info = (props:InfoProps) => {
     return (
         <ScrollView>
-            <Text>
-                Python is one of the most important programming languages and must be part of any programmer's toolset.
-            </Text>
+            <Text> {props.description} </Text>
 
-            <View style={{ marginTop: 5 }}>
+            {/* <View style={{ marginTop: 5 }}>
                 <Text style={styles.title}>What Will I Learn?</Text>
                 <View style={styles.itemContainer}>
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
@@ -25,9 +27,9 @@ export const Info = () => {
                         <Text style={styles.itemText}>Create small programs with Python 2.</Text>
                     </View>
                 </View>
-            </View>
+            </View> */}
 
-            <View style={{ marginTop: 15 }}>
+            {/* <View style={{ marginTop: 15 }}>
                 <Text style={styles.title}>Who is the target audience?</Text>
                 <View style={styles.itemContainer}>
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
@@ -45,9 +47,9 @@ export const Info = () => {
                         <Text style={styles.itemText}>Create small programs with Python 2.</Text>
                     </View>
                 </View>
-            </View>
+            </View> */}
 
-            <View style={{ marginTop: 15 }}>
+            {/* <View style={{ marginTop: 15 }}>
                 <Text style={styles.title}>Who is the target audience?</Text>
                 <View style={styles.itemContainer}>
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
@@ -65,9 +67,9 @@ export const Info = () => {
                         <Text style={styles.itemText}>Create small programs with Python 2.</Text>
                     </View>
                 </View>
-            </View>
+            </View> */}
 
-            <View style={{ marginTop: 15 }}>
+            {/* <View style={{ marginTop: 15 }}>
                 <Text style={styles.title}>Who is the target audience?</Text>
                 <View style={styles.itemContainer}>
                     <View style={{ display: 'flex', flexDirection: 'row' }}>
@@ -85,7 +87,7 @@ export const Info = () => {
                         <Text style={styles.itemText}>Create small programs with Python 2.</Text>
                     </View>
                 </View>
-            </View>
+            </View> */}
         </ScrollView>
     )
 }
